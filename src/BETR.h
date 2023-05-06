@@ -1,0 +1,135 @@
+#ifndef __BETR__
+#define __BETR__
+
+Rcpp::List gamma_update(arma::vec y_trans,
+                        arma::mat x,
+                        arma::mat x_trans,
+                        arma::mat xtx,
+                        int p_x,
+                        double sigma2_gamma,
+                        arma::vec mu_y_trans,
+                        arma::vec gamma_old,
+                        double sigma2_epsilon_old);
+
+Rcpp::List zeta_update(arma::vec y_trans,
+                       int n,
+                       arma::mat one_star,
+                       arma::mat one_star_trans,
+                       arma::mat one_star_t_one_star,
+                       arma::vec mu_y_trans,
+                       arma::vec zeta_old,
+                       double sigma2_zeta_old,
+                       double sigma2_epsilon_old);
+
+double sigma2_zeta_update(int n,
+                          double a_sigma2_zeta,
+                          double b_sigma2_zeta,
+                          arma::vec zeta);
+
+Rcpp::List V_update(arma::vec y_trans,
+                    arma::vec m,
+                    arma::mat x,
+                    arma::mat one_star,
+                    int d,
+                    arma::vec mu_y_trans_old,
+                    arma::vec gamma,
+                    arma::vec zeta,
+                    arma::vec V_old,
+                    arma::vec theta_old,
+                    arma::vec psi_less_old,
+                    arma::vec psi_old,
+                    arma::vec full_theta_old,
+                    double alpha_old,
+                    arma::mat z_delta_old,
+                    double sigma2_epsilon_old,
+                    arma::vec metrop_V,
+                    arma::vec acctot_V);
+
+double alpha_update(int d,
+                    double a_alpha,
+                    double b_alpha,
+                    arma::vec V);
+
+Rcpp::List delta_update(arma::vec y_trans,
+                        int n,
+                        arma::vec m,
+                        arma::mat t,
+                        arma::mat z,
+                        arma::vec c,
+                        int d,
+                        arma::vec a0,
+                        arma::vec max_a1_a2,
+                        arma::vec choose_vec,
+                        Rcpp::IntegerVector power1,
+                        Rcpp::IntegerVector power2,
+                        arma::vec mu_y_trans_old,
+                        arma::vec theta,
+                        arma::vec full_theta,
+                        arma::vec delta_old,
+                        arma::vec delta_trans_old,
+                        arma::mat z_delta_old,
+                        arma::vec eta_old,
+                        double sigma2_phi_old,
+                        double sigma2_epsilon_old,
+                        arma::vec metrop_var_delta,
+                        arma::vec acctot_delta);
+
+arma::vec eta_update(arma::mat z_trans,
+                     arma::mat ztz,
+                     int p_z,
+                     double sigma2_eta,
+                     arma::vec delta_trans,
+                     double sigma2_phi_old);
+
+double sigma2_phi_update(int n,
+                         arma::mat z,
+                         double a_sigma2_phi,
+                         double b_sigma2_phi,
+                         arma::vec delta_trans,
+                         arma::vec eta);
+
+double sigma2_epsilon_update(arma::vec y_trans,
+                             arma::vec m,
+                             arma::vec mu_y_trans,
+                             double a_sigma2_epsilon,
+                             double b_sigma2_epsilon);
+
+double neg_two_loglike_update(arma::vec y_trans,
+                              arma::vec m,
+                              arma::vec mu_y_trans,
+                              double sigma2_epsilon);
+
+Rcpp::List BETR(int mcmc_samples,
+                arma::vec y_trans,
+                arma::vec m,
+                arma::mat t,
+                arma::mat x,
+                arma::mat z,
+                arma::vec a0,
+                double a2,
+                int d,
+                arma::vec metrop_V,
+                arma::vec metrop_var_delta,
+                Rcpp::Nullable<Rcpp::NumericVector> a1_opt,
+                Rcpp::Nullable<double> sigma2_gamma_prior,
+                Rcpp::Nullable<double> a_sigma2_zeta_prior,
+                Rcpp::Nullable<double> b_sigma2_zeta_prior,
+                Rcpp::Nullable<double> a_alpha_prior,
+                Rcpp::Nullable<double> b_alpha_prior,
+                Rcpp::Nullable<double> sigma2_eta_prior,
+                Rcpp::Nullable<double> a_sigma2_phi_prior,
+                Rcpp::Nullable<double> b_sigma2_phi_prior, 
+                Rcpp::Nullable<double> a_sigma2_epsilon_prior,
+                Rcpp::Nullable<double> b_sigma2_epsilon_prior,
+                Rcpp::Nullable<Rcpp::NumericVector> gamma_init,
+                Rcpp::Nullable<Rcpp::NumericVector> zeta_init,
+                Rcpp::Nullable<double> sigma2_zeta_init,
+                Rcpp::Nullable<Rcpp::NumericVector> theta_init,
+                Rcpp::Nullable<Rcpp::NumericVector> V_init,
+                Rcpp::Nullable<double> alpha_init,
+                Rcpp::Nullable<Rcpp::NumericVector> delta_init,
+                Rcpp::Nullable<Rcpp::NumericVector> eta_init,
+                Rcpp::Nullable<double> sigma2_phi_init,
+                Rcpp::Nullable<double> sigma2_epsilon_init); 
+
+#endif // __BETR__
