@@ -2,7 +2,7 @@ library(BETR)
 josh<-BETR(mcmc_samples = 10000, 
            y_trans = y_trans, 
            m = m, 
-           t = t, 
+           t = t_mat, 
            x = x, 
            z = z, 
            a0 = a0, 

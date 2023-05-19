@@ -85,6 +85,7 @@ arma::mat gamma(p_x, mcmc_samples); gamma.fill(0.00);
 arma::mat zeta(n, mcmc_samples); zeta.fill(0.00);
 arma::vec sigma2_zeta(mcmc_samples); sigma2_zeta.fill(0.00);
 arma::mat theta(d, mcmc_samples); theta.fill(0.00);
+theta.row(d-1).fill(1.00);
 arma::mat V((d-1), mcmc_samples); V.fill(0.00);
 arma::vec alpha(mcmc_samples); alpha.fill(0.00);
 arma::mat delta(n, mcmc_samples); delta.fill(0.00);
@@ -160,31 +161,37 @@ if(sigma2_zeta_init.isNotNull()){
   sigma2_zeta(0) = Rcpp::as<double>(sigma2_zeta_init);
   }
 
-alpha(0) = 1.00;
-if(alpha_init.isNotNull()){
-  alpha(0) = Rcpp::as<double>(alpha_init);
-  }
-
-V.col(0).fill(0.50);
-if(V_init.isNotNull()){
-  V.col(0) = Rcpp::as<arma::vec>(V_init);
-  }
-
-arma::vec psi_less(d-1); psi_less.fill(1.00); 
-if(d > 2){
-  psi_less.subvec(1, (d-2)) = arma::cumprod(1.00 - V.col(0).subvec(0, (d-3)));
-  }
-psi_less = psi_less%V.col(0);
+arma::vec psi_less(d-1); psi_less.fill(1.00);
 arma::vec psi(d); psi.fill(0.00);
-psi.subvec(0, (d-2)) = psi_less;
-psi(d-1) = 1.00 - 
-           sum(psi_less);
+if(d > 1){
+  
+  alpha(0) = 1.00;
+  if(alpha_init.isNotNull()){
+    alpha(0) = Rcpp::as<double>(alpha_init);
+    }
 
-theta(0,0) = psi(0);
-for(int j = 1; j < d; ++j){
-   theta(j,0) = theta((j-1), 0) +
-                psi(j);
-   }
+  V.col(0).fill(0.50);
+  if(V_init.isNotNull()){
+    V.col(0) = Rcpp::as<arma::vec>(V_init);
+    }
+
+  arma::vec psi_less(d-1); psi_less.fill(1.00); 
+  if(d > 2){
+    psi_less.subvec(1, (d-2)) = arma::cumprod(1.00 - V.col(0).subvec(0, (d-3)));
+    }
+  psi_less = psi_less%V.col(0);
+  arma::vec psi(d); psi.fill(0.00);
+  psi.subvec(0, (d-2)) = psi_less;
+  psi(d-1) = 1.00 - 
+             sum(psi_less);
+
+  theta(0,0) = psi(0);
+  for(int j = 1; j < d; ++j){
+     theta(j,0) = theta((j-1), 0) +
+                  psi(j);
+     }
+  
+  }
 if(theta_init.isNotNull()){
   
   theta.col(0) = Rcpp::as<arma::vec>(theta_init);
@@ -295,39 +302,43 @@ for(int j = 1; j < mcmc_samples; ++j){
                                        b_sigma2_zeta,
                                        zeta.col(j));
    
-   //V (theta) Update
-   Rcpp::List V_output = V_update(y_trans,
-                                  m,
-                                  x,
-                                  one_star,
-                                  d,
-                                  mu_y_trans,
-                                  gamma.col(j),
-                                  zeta.col(j),
-                                  V.col(j-1),
-                                  theta.col(j-1),
-                                  psi_less,
-                                  psi,
-                                  full_theta,
-                                  alpha(j-1),
-                                  z_delta,
-                                  sigma2_epsilon(j-1),
-                                  metrop_V,
-                                  acctot_V);
+   if(d > 1){
+     
+     //V (theta) Update
+     Rcpp::List V_output = V_update(y_trans,
+                                    m,
+                                    x,
+                                    one_star,
+                                    d,
+                                    mu_y_trans,
+                                    gamma.col(j),
+                                    zeta.col(j),
+                                    V.col(j-1),
+                                    theta.col(j-1),
+                                    psi_less,
+                                    psi,
+                                    full_theta,
+                                    alpha(j-1),
+                                    z_delta,
+                                    sigma2_epsilon(j-1),
+                                    metrop_V,
+                                    acctot_V);
    
-   V.col(j) = Rcpp::as<arma::vec>(V_output[0]);
-   theta.col(j) = Rcpp::as<arma::vec>(V_output[1]);
-   psi_less = Rcpp::as<arma::vec>(V_output[2]);
-   psi = Rcpp::as<arma::vec>(V_output[3]);
-   full_theta = Rcpp::as<arma::vec>(V_output[4]);
-   mu_y_trans = Rcpp::as<arma::vec>(V_output[5]);
-   acctot_V = Rcpp::as<arma::vec>(V_output[6]);
+     V.col(j) = Rcpp::as<arma::vec>(V_output[0]);
+     theta.col(j) = Rcpp::as<arma::vec>(V_output[1]);
+     psi_less = Rcpp::as<arma::vec>(V_output[2]);
+     psi = Rcpp::as<arma::vec>(V_output[3]);
+     full_theta = Rcpp::as<arma::vec>(V_output[4]);
+     mu_y_trans = Rcpp::as<arma::vec>(V_output[5]);
+     acctot_V = Rcpp::as<arma::vec>(V_output[6]);
    
-   //alpha Update
-   alpha(j) = alpha_update(d,
-                           a_alpha,
-                           b_alpha,
-                           V.col(j));
+     //alpha Update
+     alpha(j) = alpha_update(d,
+                             a_alpha,
+                             b_alpha,
+                             V.col(j));
+     
+     }
    
    //delta Update 
    Rcpp::List delta_output = delta_update(y_trans,
@@ -399,11 +410,15 @@ for(int j = 1; j < mcmc_samples; ++j){
      double completion = round(100*((j + 1)/(double)mcmc_samples));
      Rcpp::Rcout << "Progress: " << completion << "%" << std::endl;
      
-     double accrate_V_min = round(100*(min(acctot_V)/(double)j));
-     Rcpp::Rcout << "V Acceptance (min): " << accrate_V_min << "%" << std::endl;
+     if(d > 1){
+       
+       double accrate_V_min = round(100*(min(acctot_V)/(double)j));
+       Rcpp::Rcout << "V Acceptance (min): " << accrate_V_min << "%" << std::endl;
      
-     double accrate_V_max = round(100*(max(acctot_V)/(double)j));
-     Rcpp::Rcout << "V Acceptance (max): " << accrate_V_max << "%" << std::endl;
+       double accrate_V_max = round(100*(max(acctot_V)/(double)j));
+       Rcpp::Rcout << "V Acceptance (max): " << accrate_V_max << "%" << std::endl;
+     
+       }
      
      double accrate_delta_min = round(100*(min(acctot_delta)/(double)j));
      Rcpp::Rcout << "delta Acceptance (min): " << accrate_delta_min << "%" << std::endl;
