@@ -7,7 +7,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 
 Rcpp::List delta_update(arma::vec y_trans,
-                        int n,
+                        int sum_r,
                         arma::vec m,
                         arma::mat t,
                         arma::mat z,
@@ -18,6 +18,7 @@ Rcpp::List delta_update(arma::vec y_trans,
                         arma::vec choose_vec,
                         Rcpp::IntegerVector power1,
                         Rcpp::IntegerVector power2,
+                        Rcpp::IntegerVector phi0_pointer,
                         arma::vec mu_y_trans_old,
                         arma::vec theta,
                         arma::vec full_theta,
@@ -25,7 +26,8 @@ Rcpp::List delta_update(arma::vec y_trans,
                         arma::vec delta_trans_old,
                         arma::mat z_delta_old,
                         arma::vec eta_old,
-                        double sigma2_phi_old,
+                        arma::vec phi0_old,
+                        double sigma2_phi1_old,
                         double sigma2_epsilon_old,
                         arma::vec metrop_var_delta,
                         arma::vec acctot_delta){
@@ -43,7 +45,7 @@ arma::mat z_delta = z_delta_old;
 
 int counter0; counter0 = 0;
 int counter1; counter1 = 0;
-for(int j = 0; j < n; ++j){
+for(int j = 0; j < sum_r; ++j){
   
    if(j == 0){
      counter0 = 0;
@@ -51,7 +53,7 @@ for(int j = 0; j < n; ++j){
    if(j > 0){
      counter0 = sum(m.subvec(0, (j-1)));
      }
-  
+   
    delta_trans_old(j) = delta_trans(j);
    z_delta_old = z_delta;
    mu_y_trans_old = mu_y_trans;
@@ -66,10 +68,10 @@ for(int j = 0; j < n; ++j){
       }
    denom = sum(dens) +
            R::dnorm(delta_trans_old(j),
-                    dot(z.row(j), eta_old),
-                    sqrt(sigma2_phi_old),
+                    (dot(z.row(j), eta_old) + phi0_old(phi0_pointer(j) - 1)),
+                    sqrt(sigma2_phi1_old),
                     TRUE);
-  
+   
    /*First*/
    delta_trans(j) = R::rnorm(delta_trans_old(j),
                              sqrt(metrop_var_delta(j)));
@@ -88,8 +90,9 @@ for(int j = 0; j < n; ++j){
       
          }
       z_delta.row(counter1 - 1) = trans(choose_vec%vec1%vec2);
+      
       }
-  
+   
    mu_y_trans.subvec(counter0, (sum(m.subvec(0,j)) - 1)) = (mu_y_trans.subvec(counter0, (sum(m.subvec(0,j)) - 1)) - log(z_delta_old.rows(counter0, (sum(m.subvec(0,j)) - 1))*full_theta)) +
                                                            log(z_delta.rows(counter0, (sum(m.subvec(0,j)) - 1))*full_theta);
    
@@ -102,8 +105,8 @@ for(int j = 0; j < n; ++j){
       }
    numer = sum(dens) +
            R::dnorm(delta_trans(j),
-                    dot(z.row(j), eta_old),
-                    sqrt(sigma2_phi_old),
+                    (dot(z.row(j), eta_old) + phi0_old(phi0_pointer(j) - 1)),
+                    sqrt(sigma2_phi1_old),
                     TRUE);
   
    /*Decision*/
@@ -121,7 +124,7 @@ for(int j = 0; j < n; ++j){
 
    acctot_delta(j) = acctot_delta(j) + 
                      acc;
-  
+   
    }
 
 return Rcpp::List::create(Rcpp::Named("delta") = delta,
