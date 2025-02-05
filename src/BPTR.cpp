@@ -14,11 +14,10 @@ Rcpp::List BPTR(int mcmc_samples,
                 arma::mat x,
                 arma::mat z,
                 arma::vec a0,
-                double a2,
+                double a1,
                 int d,
                 arma::vec metrop_V,
                 arma::vec metrop_var_delta,
-                //Rcpp::Nullable<Rcpp::NumericVector> a1_opt = R_NilValue,
                 Rcpp::Nullable<double> sigma2_gamma_prior = R_NilValue,
                 Rcpp::Nullable<double> a_sigma2_zeta0_prior = R_NilValue,
                 Rcpp::Nullable<double> b_sigma2_zeta0_prior = R_NilValue,
@@ -68,7 +67,7 @@ for(int j = 0; j < (d + 1); ++j){
 //  }
 arma::vec c(sum_r); c.fill(0.00);
 arma::vec temp(2); temp.fill(0.00);
-temp(1) = a2;
+temp(1) = a1;
 arma::vec max_a1_a2(sum_r); max_a1_a2.fill(0.00);
 for(int j = 0; j < sum_r; ++j){
   
