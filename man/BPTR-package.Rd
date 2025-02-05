@@ -1,24 +1,24 @@
-\name{BETR-package}
-\alias{BETR-package}
-\alias{BETR}
+\name{BPTR-package}
+\alias{BPTR-package}
+\alias{BPTR}
 \docType{package}
 \title{
-\packageTitle{BETR}
+\packageTitle{BPTR}
 }
 \description{
-\packageDescription{BETR}
+\packageDescription{BPTR}
 }
 \details{
 
 The DESCRIPTION file:
-\packageDESCRIPTION{BETR}
-\packageIndices{BETR}
+\packageDESCRIPTION{BPTR}
+\packageIndices{BPTR}
 ~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-\packageAuthor{BETR}
+\packageAuthor{BPTR}
 
-Maintainer: \packageMaintainer{BETR}
+Maintainer: \packageMaintainer{BPTR}
 }
 \references{
 ~~ Literature or other references for background information ~~
