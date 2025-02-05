@@ -1,5 +1,5 @@
 #include "RcppArmadillo.h"
-#include "BETR.h"
+#include "BPTR.h"
 using namespace arma;
 using namespace Rcpp;
 

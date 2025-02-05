@@ -1,12 +1,12 @@
 #include "RcppArmadillo.h"
-#include "BETR.h"
+#include "BPTR.h"
 using namespace arma;
 using namespace Rcpp;
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
 
-Rcpp::List BETR(int mcmc_samples,
+Rcpp::List BPTR(int mcmc_samples,
                 arma::vec y_trans,
                 arma::vec r,
                 arma::vec m,

@@ -1,5 +1,5 @@
-#ifndef __BETR__
-#define __BETR__
+#ifndef __BPTR__
+#define __BPTR__
 
 Rcpp::List gamma_update(arma::vec y_trans,
                         arma::mat x,
@@ -131,7 +131,7 @@ double neg_two_loglike_update(arma::vec y_trans,
                               arma::vec mu_y_trans,
                               double sigma2_epsilon);
 
-Rcpp::List BETR(int mcmc_samples,
+Rcpp::List BPTR(int mcmc_samples,
                 arma::vec y_trans,
                 arma::vec r,
                 arma::vec m,
@@ -173,4 +173,4 @@ Rcpp::List BETR(int mcmc_samples,
                 Rcpp::Nullable<double> sigma2_phi1_init,
                 Rcpp::Nullable<double> sigma2_epsilon_init); 
 
-#endif // __BETR__
+#endif // __BPTR__
