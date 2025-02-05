@@ -12,8 +12,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // BPTR
-Rcpp::List BPTR(int mcmc_samples, arma::vec y_trans, arma::vec r, arma::vec m, arma::mat t, arma::mat x, arma::mat z, arma::vec a0, double a2, int d, arma::vec metrop_V, arma::vec metrop_var_delta, Rcpp::Nullable<Rcpp::NumericVector> a1_opt, Rcpp::Nullable<double> sigma2_gamma_prior, Rcpp::Nullable<double> a_sigma2_zeta0_prior, Rcpp::Nullable<double> b_sigma2_zeta0_prior, Rcpp::Nullable<double> a_sigma2_zeta1_prior, Rcpp::Nullable<double> b_sigma2_zeta1_prior, Rcpp::Nullable<double> a_alpha_prior, Rcpp::Nullable<double> b_alpha_prior, Rcpp::Nullable<double> sigma2_eta_prior, Rcpp::Nullable<double> a_sigma2_phi0_prior, Rcpp::Nullable<double> b_sigma2_phi0_prior, Rcpp::Nullable<double> a_sigma2_phi1_prior, Rcpp::Nullable<double> b_sigma2_phi1_prior, Rcpp::Nullable<double> a_sigma2_epsilon_prior, Rcpp::Nullable<double> b_sigma2_epsilon_prior, Rcpp::Nullable<Rcpp::NumericVector> gamma_init, Rcpp::Nullable<Rcpp::NumericVector> zeta0_init, Rcpp::Nullable<double> sigma2_zeta0_init, Rcpp::Nullable<Rcpp::NumericVector> zeta1_init, Rcpp::Nullable<double> sigma2_zeta1_init, Rcpp::Nullable<Rcpp::NumericVector> theta_init, Rcpp::Nullable<Rcpp::NumericVector> V_init, Rcpp::Nullable<double> alpha_init, Rcpp::Nullable<Rcpp::NumericVector> delta_init, Rcpp::Nullable<Rcpp::NumericVector> eta_init, Rcpp::Nullable<Rcpp::NumericVector> phi0_init, Rcpp::Nullable<double> sigma2_phi0_init, Rcpp::Nullable<double> sigma2_phi1_init, Rcpp::Nullable<double> sigma2_epsilon_init);
-RcppExport SEXP _BPTR_BPTR(SEXP mcmc_samplesSEXP, SEXP y_transSEXP, SEXP rSEXP, SEXP mSEXP, SEXP tSEXP, SEXP xSEXP, SEXP zSEXP, SEXP a0SEXP, SEXP a2SEXP, SEXP dSEXP, SEXP metrop_VSEXP, SEXP metrop_var_deltaSEXP, SEXP a1_optSEXP, SEXP sigma2_gamma_priorSEXP, SEXP a_sigma2_zeta0_priorSEXP, SEXP b_sigma2_zeta0_priorSEXP, SEXP a_sigma2_zeta1_priorSEXP, SEXP b_sigma2_zeta1_priorSEXP, SEXP a_alpha_priorSEXP, SEXP b_alpha_priorSEXP, SEXP sigma2_eta_priorSEXP, SEXP a_sigma2_phi0_priorSEXP, SEXP b_sigma2_phi0_priorSEXP, SEXP a_sigma2_phi1_priorSEXP, SEXP b_sigma2_phi1_priorSEXP, SEXP a_sigma2_epsilon_priorSEXP, SEXP b_sigma2_epsilon_priorSEXP, SEXP gamma_initSEXP, SEXP zeta0_initSEXP, SEXP sigma2_zeta0_initSEXP, SEXP zeta1_initSEXP, SEXP sigma2_zeta1_initSEXP, SEXP theta_initSEXP, SEXP V_initSEXP, SEXP alpha_initSEXP, SEXP delta_initSEXP, SEXP eta_initSEXP, SEXP phi0_initSEXP, SEXP sigma2_phi0_initSEXP, SEXP sigma2_phi1_initSEXP, SEXP sigma2_epsilon_initSEXP) {
+Rcpp::List BPTR(int mcmc_samples, arma::vec y_trans, arma::vec r, arma::vec m, arma::mat t, arma::mat x, arma::mat z, arma::vec a0, double a1, int d, arma::vec metrop_V, arma::vec metrop_var_delta, Rcpp::Nullable<double> sigma2_gamma_prior, Rcpp::Nullable<double> a_sigma2_zeta0_prior, Rcpp::Nullable<double> b_sigma2_zeta0_prior, Rcpp::Nullable<double> a_sigma2_zeta1_prior, Rcpp::Nullable<double> b_sigma2_zeta1_prior, Rcpp::Nullable<double> a_alpha_prior, Rcpp::Nullable<double> b_alpha_prior, Rcpp::Nullable<double> sigma2_eta_prior, Rcpp::Nullable<double> a_sigma2_phi0_prior, Rcpp::Nullable<double> b_sigma2_phi0_prior, Rcpp::Nullable<double> a_sigma2_phi1_prior, Rcpp::Nullable<double> b_sigma2_phi1_prior, Rcpp::Nullable<double> a_sigma2_epsilon_prior, Rcpp::Nullable<double> b_sigma2_epsilon_prior, Rcpp::Nullable<Rcpp::NumericVector> gamma_init, Rcpp::Nullable<Rcpp::NumericVector> zeta0_init, Rcpp::Nullable<double> sigma2_zeta0_init, Rcpp::Nullable<Rcpp::NumericVector> zeta1_init, Rcpp::Nullable<double> sigma2_zeta1_init, Rcpp::Nullable<Rcpp::NumericVector> theta_init, Rcpp::Nullable<Rcpp::NumericVector> V_init, Rcpp::Nullable<double> alpha_init, Rcpp::Nullable<Rcpp::NumericVector> delta_init, Rcpp::Nullable<Rcpp::NumericVector> eta_init, Rcpp::Nullable<Rcpp::NumericVector> phi0_init, Rcpp::Nullable<double> sigma2_phi0_init, Rcpp::Nullable<double> sigma2_phi1_init, Rcpp::Nullable<double> sigma2_epsilon_init);
+RcppExport SEXP _BPTR_BPTR(SEXP mcmc_samplesSEXP, SEXP y_transSEXP, SEXP rSEXP, SEXP mSEXP, SEXP tSEXP, SEXP xSEXP, SEXP zSEXP, SEXP a0SEXP, SEXP a1SEXP, SEXP dSEXP, SEXP metrop_VSEXP, SEXP metrop_var_deltaSEXP, SEXP sigma2_gamma_priorSEXP, SEXP a_sigma2_zeta0_priorSEXP, SEXP b_sigma2_zeta0_priorSEXP, SEXP a_sigma2_zeta1_priorSEXP, SEXP b_sigma2_zeta1_priorSEXP, SEXP a_alpha_priorSEXP, SEXP b_alpha_priorSEXP, SEXP sigma2_eta_priorSEXP, SEXP a_sigma2_phi0_priorSEXP, SEXP b_sigma2_phi0_priorSEXP, SEXP a_sigma2_phi1_priorSEXP, SEXP b_sigma2_phi1_priorSEXP, SEXP a_sigma2_epsilon_priorSEXP, SEXP b_sigma2_epsilon_priorSEXP, SEXP gamma_initSEXP, SEXP zeta0_initSEXP, SEXP sigma2_zeta0_initSEXP, SEXP zeta1_initSEXP, SEXP sigma2_zeta1_initSEXP, SEXP theta_initSEXP, SEXP V_initSEXP, SEXP alpha_initSEXP, SEXP delta_initSEXP, SEXP eta_initSEXP, SEXP phi0_initSEXP, SEXP sigma2_phi0_initSEXP, SEXP sigma2_phi1_initSEXP, SEXP sigma2_epsilon_initSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -25,11 +25,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type z(zSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type a0(a0SEXP);
-    Rcpp::traits::input_parameter< double >::type a2(a2SEXP);
+    Rcpp::traits::input_parameter< double >::type a1(a1SEXP);
     Rcpp::traits::input_parameter< int >::type d(dSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type metrop_V(metrop_VSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type metrop_var_delta(metrop_var_deltaSEXP);
-    Rcpp::traits::input_parameter< Rcpp::Nullable<Rcpp::NumericVector> >::type a1_opt(a1_optSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type sigma2_gamma_prior(sigma2_gamma_priorSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type a_sigma2_zeta0_prior(a_sigma2_zeta0_priorSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type b_sigma2_zeta0_prior(b_sigma2_zeta0_priorSEXP);
@@ -58,7 +57,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type sigma2_phi0_init(sigma2_phi0_initSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type sigma2_phi1_init(sigma2_phi1_initSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<double> >::type sigma2_epsilon_init(sigma2_epsilon_initSEXP);
-    rcpp_result_gen = Rcpp::wrap(BPTR(mcmc_samples, y_trans, r, m, t, x, z, a0, a2, d, metrop_V, metrop_var_delta, a1_opt, sigma2_gamma_prior, a_sigma2_zeta0_prior, b_sigma2_zeta0_prior, a_sigma2_zeta1_prior, b_sigma2_zeta1_prior, a_alpha_prior, b_alpha_prior, sigma2_eta_prior, a_sigma2_phi0_prior, b_sigma2_phi0_prior, a_sigma2_phi1_prior, b_sigma2_phi1_prior, a_sigma2_epsilon_prior, b_sigma2_epsilon_prior, gamma_init, zeta0_init, sigma2_zeta0_init, zeta1_init, sigma2_zeta1_init, theta_init, V_init, alpha_init, delta_init, eta_init, phi0_init, sigma2_phi0_init, sigma2_phi1_init, sigma2_epsilon_init));
+    rcpp_result_gen = Rcpp::wrap(BPTR(mcmc_samples, y_trans, r, m, t, x, z, a0, a1, d, metrop_V, metrop_var_delta, sigma2_gamma_prior, a_sigma2_zeta0_prior, b_sigma2_zeta0_prior, a_sigma2_zeta1_prior, b_sigma2_zeta1_prior, a_alpha_prior, b_alpha_prior, sigma2_eta_prior, a_sigma2_phi0_prior, b_sigma2_phi0_prior, a_sigma2_phi1_prior, b_sigma2_phi1_prior, a_sigma2_epsilon_prior, b_sigma2_epsilon_prior, gamma_init, zeta0_init, sigma2_zeta0_init, zeta1_init, sigma2_zeta1_init, theta_init, V_init, alpha_init, delta_init, eta_init, phi0_init, sigma2_phi0_init, sigma2_phi1_init, sigma2_epsilon_init));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -320,7 +319,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_BPTR_BPTR", (DL_FUNC) &_BPTR_BPTR, 41},
+    {"_BPTR_BPTR", (DL_FUNC) &_BPTR_BPTR, 40},
     {"_BPTR_V_update", (DL_FUNC) &_BPTR_V_update, 15},
     {"_BPTR_alpha_update", (DL_FUNC) &_BPTR_alpha_update, 4},
     {"_BPTR_delta_update", (DL_FUNC) &_BPTR_delta_update, 25},

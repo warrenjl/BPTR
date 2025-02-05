@@ -18,7 +18,7 @@ Rcpp::List BPTR(int mcmc_samples,
                 int d,
                 arma::vec metrop_V,
                 arma::vec metrop_var_delta,
-                Rcpp::Nullable<Rcpp::NumericVector> a1_opt = R_NilValue,
+                //Rcpp::Nullable<Rcpp::NumericVector> a1_opt = R_NilValue,
                 Rcpp::Nullable<double> sigma2_gamma_prior = R_NilValue,
                 Rcpp::Nullable<double> a_sigma2_zeta0_prior = R_NilValue,
                 Rcpp::Nullable<double> b_sigma2_zeta0_prior = R_NilValue,
@@ -62,17 +62,18 @@ arma::vec choose_vec(d + 1); choose_vec.fill(0.00);
 for(int j = 0; j < (d + 1); ++j){
    choose_vec(j) = R::choose(d, j);
    }
-arma::vec a1(sum_r); a1.fill(0.00);
-if(a1_opt.isNotNull()){
-  a1 = Rcpp::as<arma::vec>(a1_opt);
-  }
+//arma::vec a1(sum_r); a1.fill(0.00);
+//if(a1_opt.isNotNull()){0
+//  a1 = Rcpp::as<arma::vec>(a1_opt);
+//  }
 arma::vec c(sum_r); c.fill(0.00);
 arma::vec temp(2); temp.fill(0.00);
 temp(1) = a2;
 arma::vec max_a1_a2(sum_r); max_a1_a2.fill(0.00);
 for(int j = 0; j < sum_r; ++j){
   
-   temp(0) = a1(j);
+   //temp(0) = a1(j);
+   temp(0) = 0.00;
    max_a1_a2(j) = max(temp);
    c(j) = t(j, (m(j) - 1)) +
           a0(j) -
