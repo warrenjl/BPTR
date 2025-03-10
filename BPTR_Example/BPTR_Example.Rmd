@@ -7,102 +7,90 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# GPCW: Gaussian Process Model for Critical Window Estimation
+# BPTR: Bernstein Polynomial Temporal Realignment
 
-## GPCW_Example
+## BPTR_Example
 
-[1] Simulate data from the proposed model:
-
-* Setting the reproducibility seed and initializing packages for data simulation: 
 ```{r}
-set.seed(8453)
+#########
+#Packages
+#########
+library(BPTR)
+library(matrixStats)
+library(HDInterval)
 
-library(GPCW)  
-library(mnormt)  #Multivariate normal distribution
-library(boot)  #Inverse logit transformation
-```
+##########
+#Load Data
+##########
+url_path<-"https://raw.githubusercontent.com/warrenjl/BPTR/main/BPTR_Example/Simulated_Dataset.RData"
+load(url(url_path))
 
-* Setting the global data values:
-```{r}
-n<-5000  #Sample size
-m<-36  #Number of exposure time periods
-x<-matrix(1, 
-          nrow=n, 
-          ncol=1)  #Covariate design matrix
-z<-matrix(rnorm(n=(n*m)), 
-          nrow=n, 
-          ncol=m)  #Exposure design matrix
+##############
+#Model Fitting
+##############
+set.seed(8234)
 
-for(j in 1:m){
-   z[,j]<-(z[,j] - median(z[,j]))/IQR(z[,j])  #Data standardization (interquartile range)
+d<-3
+results<-BPTR(mcmc_samples = 11000, 
+              y_trans = sim_data$y_trans,
+              r = sim_data$r, 
+              m = sim_data$m, 
+              t = sim_data$t_mat, 
+              x = sim_data$x, 
+              z = sim_data$z, 
+              a0 = sim_data$a0, 
+              a1 = sim_data$a1, 
+              d = d,
+              metrop_V = seq(0.005, 0.03, length.out = (d-1)),
+              metrop_var_delta = rep(0.30^2, times = sum(sim_data$r)))
+
+keep_set<-seq(1001,
+              11000,
+              10)
+
+############################
+#Severity Function Inference
+############################
+ds_time<-seq(sim_data$min_dis_time_select,
+             sim_data$max_dis_time_select, 
+             0.01)
+z_ds<-matrix(NA,
+             nrow = length(ds_time),
+             ncol = (d+1))
+for(j in 1:length(ds_time)){ 
+   z_ds[j,]<-choose(d, c(0:d))*
+             (ds_time[j]^c(0:d))*
+             (1.00 - ds_time[j])^(d - c(0:d))  
    }
-```
 
-* Setting the values for the statistical model parameters:
-```{r}
-beta_true<- -0.30
-sigma2_theta_true<-0.50
-phi_true<-0.01
-Sigma_true<-sigma2_theta_true*chol2inv(chol(temporal_corr_fun(m, 
-                                                              phi_true)[[1]]))
-theta_true<-rmnorm(n=1, 
-                   mean=rep(0, times=m), 
-                   varcov=Sigma_true)
-theta_true<-theta_true - mean(theta_true)
-logit_p_true<-x%*%beta_true + 
-              z%*%theta_true
-probs_true<-inv.logit(logit_p_true)
-hist(probs_true)
-trials<-rep(1, times=n)
-```
+dis_sev<-matrix(NA,
+                nrow = length(ds_time),
+                ncol = length(keep_set))
+for(j in 1:length(keep_set)){
+   dis_sev[,j]<-exp(results$gamma[1, keep_set[j]])*c(z_ds%*%c(0.00, results$theta[,keep_set[j]]))
+   } 
 
-* Simulating the analysis dataset:
-```{r}
-y<-rbinom(n=n, 
-          size=trials, 
-          prob=probs_true)
-```
+dis_sev_post_mean<-rowMeans(dis_sev)
+dis_sev_post_median<-rowMedians(dis_sev)
+dis_sev_quant<-rowQuantiles(dis_sev,
+                            probs = c(0.025, 0.975))
+dis_sev_hdi<-t(hdi(t(dis_sev),
+                   credMass = 0.95))
+dis_sev_post_mean_avg_bias<-mean(dis_sev_post_mean - sim_data$dis_sev)
+dis_sev_post_median_avg_bias<-mean(dis_sev_post_median - sim_data$dis_sev)
+dis_sev_quant_avg_ec<-mean(as.numeric((sim_data$dis_sev <= dis_sev_quant[,2]) & (sim_data$dis_sev >= dis_sev_quant[,1])))
+dis_sev_hdi_avg_ec<-mean(as.numeric((sim_data$dis_sev <= dis_sev_hdi[,2]) & (sim_data$dis_sev >= dis_sev_hdi[,1])))
 
-[2] Fit GPCW to estimate critical windows of susceptibility:
-
-```{r echo=TRUE}
-results<-GPCW(mcmc_samples = 10000,
-              y = y, x = x, z = z,
-              metrop_var_phi_trans = 1.15,
-              trials = trials,
-              likelihood_indicator = 0)
-```
-
-[3]  Analyzing Output:
-
-```{r}
-par(mfrow=c(2,2))
-plot(results$beta[1, 1001:10000], 
-     type="l",
-     ylab="beta",
-     xlab="Sample")
-abline(h=beta_true,
-       col="red",
-       lwd=2)  #True value
-plot(results$sigma2_theta[1001:10000],
-     type="l",
-     ylab="sigma2_theta",
-     xlab="Sample")
-abline(h=sigma2_theta_true,
-       col="red",
-       lwd=2)  #True value
-plot(results$phi[1001:10000],
-     type="l",
-     ylab="phi",
-     xlab="Sample")
-abline(h=phi_true, 
-       col="red",
-       lwd=2)  #True value
-plot(rowMeans(results$theta[,1001:10000]), 
-     pch=16,
-     ylab="theta",
-     xlab="Time")
-points(theta_true, 
-       pch=16, 
-       col="red")  #True values
+plot(sim_data$dis_sev, 
+     type = "l",
+     lwd = 2,
+     col = "red")
+lines(dis_sev_post_mean,
+      lwd = 2)
+lines(dis_sev_quant[,1],
+      lwd = 2,
+      lty = 2)
+lines(dis_sev_quant[,2],
+      lwd = 2,
+      lty = 2)
 ```
