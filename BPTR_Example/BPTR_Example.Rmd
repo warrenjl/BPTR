@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # BPTR: Bernstein Polynomial Temporal Realignment
 
 ## BPTR_Example
-
+[1]  Loading simulated data:
 ```{r}
 #########
 #Packages
@@ -24,13 +24,16 @@ library(HDInterval)
 ##########
 url_path<-"https://raw.githubusercontent.com/warrenjl/BPTR/main/BPTR_Example/Simulated_Dataset.RData"
 load(url(url_path))
+```
 
+[2]  Model fitting:
+```{r}
 ##############
 #Model Fitting
 ##############
-set.seed(8234)
+set.seed(1234)
 
-d<-3
+d<-2
 results<-BPTR(mcmc_samples = 11000, 
               y_trans = sim_data$y_trans,
               r = sim_data$r, 
@@ -43,10 +46,13 @@ results<-BPTR(mcmc_samples = 11000,
               d = d,
               metrop_V = seq(0.005, 0.03, length.out = (d-1)),
               metrop_var_delta = rep(0.30^2, times = sum(sim_data$r)))
+```
 
-keep_set<-seq(1001,
-              11000,
-              10)
+[3]  Posterior inference for severity function:
+```{r}
+keep_set<-seq(1001,  #burnin
+              11000, #posterior samples
+              10)    #thinning rate
 
 ############################
 #Severity Function Inference
@@ -71,15 +77,8 @@ for(j in 1:length(keep_set)){
    } 
 
 dis_sev_post_mean<-rowMeans(dis_sev)
-dis_sev_post_median<-rowMedians(dis_sev)
 dis_sev_quant<-rowQuantiles(dis_sev,
                             probs = c(0.025, 0.975))
-dis_sev_hdi<-t(hdi(t(dis_sev),
-                   credMass = 0.95))
-dis_sev_post_mean_avg_bias<-mean(dis_sev_post_mean - sim_data$dis_sev)
-dis_sev_post_median_avg_bias<-mean(dis_sev_post_median - sim_data$dis_sev)
-dis_sev_quant_avg_ec<-mean(as.numeric((sim_data$dis_sev <= dis_sev_quant[,2]) & (sim_data$dis_sev >= dis_sev_quant[,1])))
-dis_sev_hdi_avg_ec<-mean(as.numeric((sim_data$dis_sev <= dis_sev_hdi[,2]) & (sim_data$dis_sev >= dis_sev_hdi[,1])))
 
 plot(sim_data$dis_sev, 
      type = "l",

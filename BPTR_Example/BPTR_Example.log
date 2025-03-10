@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.23)  10 MAR 2024 16:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.23)  10 MAR 2025 09:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./GPCW_Example.tex
-(GPCW_Example.tex
+**./BPTR_Example.tex
+(BPTR_Example.tex
 LaTeX2e <2022-06-01> pre-release-0 (develop 2022-6-23 branch)
 L3 programming layer <2022-06-02> (C:\Users\jlw98\AppData\Local\Programs\MiKTeX
  2.9\tex/latex/base\article.cls
@@ -450,8 +450,8 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count292
 \l__pdf_internal_box=\box55
-) (GPCW_Example.aux)
-\openout1 = `GPCW_Example.aux'.
+) (BPTR_Example.aux)
+\openout1 = `BPTR_Example.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 110.
 LaTeX Font Info:    ... okay on input line 110.
@@ -554,64 +554,49 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 110.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-24.
-(C:\Users\jlw98\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-29.
+20.
 (C:\Users\jlw98\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 130.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-139.
-(C:\Users\jlw98\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ts1lmtt.fd
-File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-<GPCW_Example_files/figure-latex/unnamed-chunk-3-1.pdf, id=3, 469.755pt x 325.2
-15pt>
-File: GPCW_Example_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type 
-pdf)
-<use GPCW_Example_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: GPCW_Example_files/figure-latex/unnamed-chunk-3-1.pdf 
- used on input line 198.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 121.
+
+LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 121.
+
 [1
 
-{C:/Users/jlw98/AppData/Local/MiKTeX/2.9/fonts/map/pdftex/pdftex.map}] [2 <./GP
-CW_Example_files/figure-latex/unnamed-chunk-3-1.pdf>]
-<GPCW_Example_files/figure-latex/unnamed-chunk-6-1.pdf, id=30, 469.755pt x 325.
+{C:/Users/jlw98/AppData/Local/MiKTeX/2.9/fonts/map/pdftex/pdftex.map}] [2]
+<BPTR_Example_files/figure-latex/unnamed-chunk-3-1.pdf, id=20, 469.755pt x 325.
 215pt>
-File: GPCW_Example_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type 
+File: BPTR_Example_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type 
 pdf)
-<use GPCW_Example_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: GPCW_Example_files/figure-latex/unnamed-chunk-6-1.pdf 
- used on input line 301.
+<use BPTR_Example_files/figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: BPTR_Example_files/figure-latex/unnamed-chunk-3-1.pdf 
+ used on input line 273.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[3] [4 <./GPCW_Example_files/figure-latex/unnamed-chunk-6-1.pdf>] (GPCW_Example
+[3] [4 <./BPTR_Example_files/figure-latex/unnamed-chunk-3-1.pdf>] (BPTR_Example
 .aux) ) 
 Here is how much of TeX's memory you used:
- 13554 strings out of 478343
- 218495 string characters out of 2834742
- 563222 words of memory out of 3000000
- 31767 multiletter control sequences out of 15000+600000
- 487680 words of font info for 51 fonts, out of 8000000 for 9000
+ 13473 strings out of 478343
+ 216434 string characters out of 2834742
+ 563210 words of memory out of 3000000
+ 31700 multiletter control sequences out of 15000+600000
+ 487200 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,5n,81p,1011b,614s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 74i,5n,81p,1011b,621s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-
-ts1.enc}{C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm
--ec.enc}<C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm
-/lmbx12.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
-c/lm/lmr10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/lm/lmtk10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/lm/lmtt10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/lm/lmtti10.pfb>
-Output written on GPCW_Example.pdf (4 pages, 265759 bytes).
+ec.enc}<C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/
+lmbx12.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
+/lm/lmr10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmtk10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
+/public/lm/lmtko10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/lm/lmtt10.pfb><C:/Users/jlw98/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/lm/lmtti10.pfb>
+Output written on BPTR_Example.pdf (4 pages, 150071 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 9 named destinations out of 1000 (max. 500000)
- 12315 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 71 PDF objects out of 1000 (max. 8388607)
+ 7 named destinations out of 1000 (max. 500000)
+ 10262 words of extra memory for PDF output out of 12000 (max. 10000000)
 
